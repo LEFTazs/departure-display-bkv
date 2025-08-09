@@ -1,0 +1,11 @@
+{
+	"api_key": "get api key at https://opendata.bkk.hu/",
+	"stop_finding":
+	{
+		"name": "Kaszásdűlő",
+		"lat": "47.55720798454288",
+		"lon": "19.045408320773625",
+		"radius": 50
+	}
+
+}
