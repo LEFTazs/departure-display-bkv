@@ -17,6 +17,10 @@ stop_id = departure_loader.find_stop_id(config["stop_finding"]["name"], config["
 departures = departure_loader.get_departures(stop_id)
 
 last_refresh = time.time()
+refresh_diffs = []
+keep_n_refresh_diffs = config["keep_n_refresh_diffs"]
+max_average_refresh_diff_seconds = config["max_average_refresh_diff_seconds"]
+
 refresh_rate = config["refresh_rate"]
 
 
@@ -41,6 +45,14 @@ while True:
         
         if len(departureDeltas) == 0 or start - last_refresh > refresh_rate:
             departures = departure_loader.get_departures(stop_id)
+            
+            refresh_diffs.append(time.time() - last_refresh)
+            if len(refresh_diffs) > keep_n_refresh_diffs:
+                refresh_diffs.pop(0)
+            average_refresh_diff = sum(refresh_diffs) / keep_n_refresh_diffs
+            if average_refresh_diff < max_average_refresh_diff_seconds:
+                raise Exception("Too frequent api calls")
+            
             last_refresh = time.time()
             continue
 

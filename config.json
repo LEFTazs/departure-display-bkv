@@ -7,5 +7,7 @@
 		"lon": "19.045408320773625",
 		"radius": 50
 	},
-	"refresh_rate": 86400
+	"refresh_rate": 86400,
+	"keep_n_refresh_diffs": 5,
+	"max_average_refresh_diff_seconds": 1
 }
